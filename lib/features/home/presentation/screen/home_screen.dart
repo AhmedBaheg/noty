@@ -50,7 +50,6 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 20),
             CategoriesListViewBuilderWidget(),
             SizedBox(height: 10),
-            // PinNotesListViewBuilderWidget(),
             NotesListViewBuilderWidget(),
           ],
         ),
