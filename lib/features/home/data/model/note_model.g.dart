@@ -20,15 +20,16 @@ class NoteModelAdapter extends TypeAdapter<NoteModel> {
       title: fields[0] as String?,
       content: fields[1] as String?,
       createdAt: fields[3] as DateTime?,
+      isPinned: fields[4] as bool?,
       category: fields[2] as String?,
-      categoryColor: fields[4] as int?,
+      categoryColor: fields[5] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, NoteModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -38,6 +39,8 @@ class NoteModelAdapter extends TypeAdapter<NoteModel> {
       ..writeByte(3)
       ..write(obj.createdAt)
       ..writeByte(4)
+      ..write(obj.isPinned)
+      ..writeByte(5)
       ..write(obj.categoryColor);
   }
 

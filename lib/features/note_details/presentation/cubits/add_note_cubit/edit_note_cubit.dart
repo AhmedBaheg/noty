@@ -17,4 +17,19 @@ class EditNoteCubit extends Cubit<EditNoteState> {
       emit(EditNoteFailure(message: e.toString()));
     }
   }
+
+  void isPinned(NoteModel model) {
+
+    emit(EditNoteLoading());
+
+    try {
+      model.isPinned = !model.isPinned!;
+      model.save();
+      emit(EditNoteSuccess());
+    } on Exception catch (e) {
+      // TODO
+      emit(EditNoteFailure(message: e.toString()));
+    }
+
+  }
 }

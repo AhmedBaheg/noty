@@ -16,8 +16,9 @@ class NoteModel extends HiveObject {
   @HiveField(3)
   DateTime? createdAt;
   DateTime? updatedAt;
-  bool? isPinned;
   @HiveField(4)
+  bool? isPinned;
+  @HiveField(5)
   int? categoryColor;
 
   NoteModel({

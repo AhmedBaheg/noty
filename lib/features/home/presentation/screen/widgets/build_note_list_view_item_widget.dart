@@ -33,7 +33,8 @@ class BuildNoteListViewItemWidget extends StatelessWidget {
                 SizedBox(width: 10),
                 Text(model.category!, style: AppTextStyles.label.copyWith(color: Color(model.categoryColor!))),
                 Spacer(),
-                Icon(Icons.push_pin, color: AppColors.textSecondary, size: 18),
+                Icon(
+                    Icons.push_pin_rounded, color: model.isPinned == true ? Color(model.categoryColor!) : AppColors.textSecondary, size: 18),
               ],
             ),
             SizedBox(height: 15),

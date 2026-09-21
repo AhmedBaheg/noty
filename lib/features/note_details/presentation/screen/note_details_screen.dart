@@ -8,11 +8,14 @@ import 'package:my_note/features/add_note/presentation/screen/widgets/custom_add
 import 'package:my_note/features/home/data/model/note_model.dart';
 import 'package:my_note/features/home/presentation/cubits/fetch_note_cubit/fetch_note_cubit.dart';
 
+import '../cubits/add_note_cubit/edit_note_cubit.dart';
+
 class NoteDetailsScreen extends StatefulWidget {
-  const NoteDetailsScreen({super.key, required this.model, required this.index});
+  const NoteDetailsScreen({super.key, required this.model, required this.index, this.isPinned});
 
   final NoteModel model;
   final int index;
+  final bool? isPinned;
 
   @override
   State<NoteDetailsScreen> createState() => _NoteDetailsScreenState();
@@ -21,6 +24,8 @@ class NoteDetailsScreen extends StatefulWidget {
 class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<EditNoteCubit, EditNoteState>(
+  builder: (context, state) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -28,11 +33,18 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
         iconTheme: IconThemeData(color: AppColors.textPrimary),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.push_pin_outlined,
+            onPressed: () {
+              BlocProvider.of<EditNoteCubit>(context).isPinned(widget.model);
+              BlocProvider.of<FetchNoteCubit>(context).fetchNotes();
+              Navigator.pop(context);
+            },
+            icon: widget.model.isPinned == true ? Icon(
+              Icons.push_pin_rounded,
               color: Color(widget.model.categoryColor!),
-            ),
+            ) : Icon(
+            Icons.push_pin_outlined,
+            color: Color(widget.model.categoryColor!),
+          ),
           ),
           IconButton(
             onPressed: () {
@@ -115,5 +127,7 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
         ),
       ),
     );
+  },
+);
   }
 }

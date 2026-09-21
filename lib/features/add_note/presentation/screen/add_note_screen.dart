@@ -67,6 +67,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
             category: category,
             createdAt: DateTime.now(),
             categoryColor: categoryColor?.value,
+            isPinned: false,
           ),
         );
       } else {
