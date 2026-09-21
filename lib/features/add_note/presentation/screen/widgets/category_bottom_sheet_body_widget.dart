@@ -106,12 +106,12 @@ class CategoryBottomSheetBodyWidget extends StatelessWidget {
               title: 'Personal',
               subtitle: 'Personal thoughts and notes',
               icon: Icons.person_outline,
-              iconColor: AppColors.purple,
-              iconBackground: const Color(0xFFC5B6FF),
+              iconColor: AppColors.blue,
+              iconBackground: const Color(0xFFA8D5FF),
               onChoose: () {
                 Navigator.pop(context, {
                   "category": "Personal",
-                  "category_color": AppColors.purple,
+                  "category_color": AppColors.blue,
                 });
               },
             ),
@@ -122,12 +122,12 @@ class CategoryBottomSheetBodyWidget extends StatelessWidget {
               title: 'Idea',
               subtitle: 'Ideas and inspirations',
               icon: Icons.lightbulb_outline,
-              iconColor: AppColors.blue,
-              iconBackground: const Color(0xFFA8D5FF),
+              iconColor: AppColors.purple,
+              iconBackground: const Color(0xFFC5B6FF),
               onChoose: () {
                 Navigator.pop(context, {
                   "category": "Idea",
-                  "category_color": AppColors.blue,
+                  "category_color": AppColors.purple,
                 });
               },
             ),

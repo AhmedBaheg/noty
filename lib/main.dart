@@ -8,6 +8,7 @@ import 'features/add_note/presentation/cubits/add_note_cubit/add_note_cubit.dart
 import 'features/add_note/presentation/screen/simple_bloc_observer.dart';
 import 'features/home/presentation/cubits/fetch_note_cubit/fetch_note_cubit.dart';
 import 'features/home/presentation/screen/home_screen.dart';
+import 'features/note_details/presentation/cubits/add_note_cubit/edit_note_cubit.dart';
 
 void main() async {
   // Ensure widget bindings are initialized
@@ -46,6 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FetchNoteCubit(),
+        ),
+        BlocProvider(
+          create: (context) => EditNoteCubit(),
         ),
       ],
       child: MaterialApp(

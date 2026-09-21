@@ -22,8 +22,8 @@ class AppColors {
   static const Color error = Color(0xFFEF4444);
   static const Color black = Color(0xFF000000);
   static const Color green = Color(0xFF9AE8C5);
-  static const Color blue = Color(0xFFB5A4F5);
-  static const Color purple = Color(0xFF8DC7F5);
+  static const Color blue =  Color(0xFF8DC7F5);
+  static const Color purple = Color(0xFFB5A4F5);
   static const muted = Color(0xFFA1A1AA);
 
 }

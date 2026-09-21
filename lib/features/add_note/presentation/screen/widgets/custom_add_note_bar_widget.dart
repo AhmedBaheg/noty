@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:my_note/core/utils/app_colors.dart';
 import 'package:my_note/core/utils/app_text_styles.dart';
+import 'package:my_note/features/home/data/model/note_model.dart';
 
 class CustomAddNoteBarWidget extends StatelessWidget {
   const CustomAddNoteBarWidget({
-    super.key, required this.onPressed,
+    super.key, required this.onPressed, this.model,
   });
 
   final VoidCallback? onPressed;
+  final NoteModel? model;
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +25,10 @@ class CustomAddNoteBarWidget extends StatelessWidget {
             },
             child: Text('Cancel', style: AppTextStyles.button.copyWith(color: AppColors.primary)),
           ),
-          Text('Add Note', style: AppTextStyles.appBarTitle,),
+          Text(model != null ? 'Edit Note' : 'Add Note', style: AppTextStyles.appBarTitle,),
           TextButton(
             onPressed: onPressed,
-            child: Text('Save', style: AppTextStyles.button.copyWith(color: AppColors.primary)),
+            child: Text(model != null ? 'Update' : 'Save', style: AppTextStyles.button.copyWith(color: AppColors.primary)),
           ),
         ],
       ),

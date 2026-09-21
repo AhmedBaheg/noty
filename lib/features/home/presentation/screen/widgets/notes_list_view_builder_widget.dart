@@ -1,40 +1,53 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_note/features/home/data/model/note_model.dart';
+import 'package:my_note/features/note_details/presentation/screen/note_details_screen.dart';
 
 import '../../cubits/fetch_note_cubit/fetch_note_cubit.dart';
 import 'build_note_list_view_item_widget.dart';
-import 'package:intl/intl.dart';
 
+import 'package:intl/intl.dart';
 
 class NotesListViewBuilderWidget extends StatefulWidget {
   const NotesListViewBuilderWidget({super.key});
 
   @override
-  State<NotesListViewBuilderWidget> createState() => _NotesListViewBuilderWidgetState();
+  State<NotesListViewBuilderWidget> createState() =>
+      _NotesListViewBuilderWidgetState();
 }
 
-class _NotesListViewBuilderWidgetState extends State<NotesListViewBuilderWidget> {
+class _NotesListViewBuilderWidgetState
+    extends State<NotesListViewBuilderWidget> {
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     BlocProvider.of<FetchNoteCubit>(context).fetchNotes();
-}
+  }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: BlocBuilder<FetchNoteCubit, FetchNoteState>(
         builder: (context, state) {
-          List<NoteModel> notesList = BlocProvider.of<FetchNoteCubit>(context).notesList;
+          List<NoteModel> notesList = BlocProvider.of<FetchNoteCubit>(context)
+              .notesList;
           return ListView.builder(
             itemCount: notesList.length,
-            itemBuilder: (context, index) =>
-                BuildNoteListViewItemWidget(
-                  model: notesList[index],
-                ),
+            itemBuilder: (context, index) => InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        NoteDetailsScreen(model: notesList[index], index: index,),
+                  ),
+                );
+              },
+              child: BuildNoteListViewItemWidget(model: notesList[index]),
+            ),
           );
         },
       ),

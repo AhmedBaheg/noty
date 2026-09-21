@@ -25,11 +25,18 @@ class HomeScreen extends StatelessWidget {
       ),
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: AppColors.textPrimary),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.search_rounded),
+          ),
+        ],
         backgroundColor: AppColors.background,
-        title: Text(
-          'Home Screen',
-          style: TextStyle(color: AppColors.textPrimary),
-        ),
+      ),
+      drawer: Drawer(
+
+        backgroundColor: AppColors.background,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
