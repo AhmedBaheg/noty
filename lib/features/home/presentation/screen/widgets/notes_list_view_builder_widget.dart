@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_note/features/home/data/model/note_model.dart';
@@ -7,7 +6,6 @@ import 'package:my_note/features/note_details/presentation/screen/note_details_s
 import '../../cubits/fetch_note_cubit/fetch_note_cubit.dart';
 import 'build_note_list_view_item_widget.dart';
 
-import 'package:intl/intl.dart';
 
 class NotesListViewBuilderWidget extends StatefulWidget {
   const NotesListViewBuilderWidget({super.key});
@@ -19,12 +17,13 @@ class NotesListViewBuilderWidget extends StatefulWidget {
 
 class _NotesListViewBuilderWidgetState
     extends State<NotesListViewBuilderWidget> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    BlocProvider.of<FetchNoteCubit>(context).fetchNotes();
+    setState(() {
+      BlocProvider.of<FetchNoteCubit>(context).fetchNotes();
+    });
   }
 
   @override
@@ -41,12 +40,21 @@ class _NotesListViewBuilderWidgetState
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        NoteDetailsScreen(model: notesList[index], index: index,),
+                    builder: (context) => NoteDetailsScreen(
+                      model: notesList[index],
+                      index: index,
+                    ),
                   ),
                 );
               },
-              child: BuildNoteListViewItemWidget(model: notesList[index]),
+              child: BuildNoteListViewItemWidget(
+                model: notesList[index],
+                onPressed: () {
+                  notesList[index].isPinned = !notesList[index].isPinned!;
+                  notesList[index].save();
+                  BlocProvider.of<FetchNoteCubit>(context).fetchNotes();
+                },
+              ),
             ),
           );
         },

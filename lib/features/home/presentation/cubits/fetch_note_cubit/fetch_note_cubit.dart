@@ -11,7 +11,18 @@ class FetchNoteCubit extends Cubit<FetchNoteState> {
   List<NoteModel> allList = [];
   List<NoteModel> notesList = [];
 
+
   String currentCategory = "All";
+
+  // Drawer
+  String selectedItem = "All Notes";
+  int selectedIndex = 0;
+
+  void selectItem(String item, int index) {
+      selectedItem = item;
+      selectedIndex = index;
+  }
+
 
   void fetchNotes() {
     try {
@@ -27,17 +38,11 @@ class FetchNoteCubit extends Cubit<FetchNoteState> {
         return 0;
       });
 
-      // 3. السحر هنا ✨: بدلاً من عرض الكل، نفلتر بناءً على الكاتيجوري الحالي المخزن
       filterNotesByCategory();
 
     } on Exception catch (e) {
       emit(FetchNoteFailure(message: e.toString()));
     }
-  }
-
-  void fetchSpecificNote(String selectedCategory) {
-    currentCategory = selectedCategory; // حفظ الكاتيجوري المختار
-    filterNotesByCategory();
   }
 
   void filterNotesByCategory() {
@@ -52,5 +57,27 @@ class FetchNoteCubit extends Cubit<FetchNoteState> {
     }
     emit(FetchNoteSuccess(notesList: notesList));
   }
+
+  void selectCategory(String category, int index) {
+    currentCategory = category;
+    selectedIndex = index;
+
+    selectedItem = category == "All"
+        ? "All Notes"
+        : category;
+
+    filterNotesByCategory();
+  }
+
+  void moveToTrash(NoteModel note) {
+
+    var notesBox = Hive.box<NoteModel>(AppTexts.noteBox);
+    notesBox.delete(note.key);
+
+    var trashBox = Hive.box<NoteModel>(AppTexts.trashBox);
+    trashBox.add(note);
+
+  }
+
 }
 

@@ -6,6 +6,7 @@ import 'package:my_note/features/add_note/presentation/screen/add_note_screen.da
 import 'package:my_note/features/home/presentation/screen/widgets/build_floating_action_button_widget.dart';
 
 import 'widgets/categories_list_view_builder_widget.dart';
+import 'widgets/custom_drawer_widget.dart';
 import 'widgets/notes_list_view_builder_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,10 +35,7 @@ class HomeScreen extends StatelessWidget {
         ],
         backgroundColor: AppColors.background,
       ),
-      drawer: Drawer(
-
-        backgroundColor: AppColors.background,
-      ),
+      drawer: CustomDrawerWidget(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(

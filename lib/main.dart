@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_note/core/utils/app_texts.dart';
 import 'package:my_note/features/home/data/model/note_model.dart';
+import 'package:my_note/features/trash_note/presentation/cubit/trash_note_cubit.dart';
 
 import 'features/add_note/presentation/cubits/add_note_cubit/add_note_cubit.dart';
 import 'features/add_note/presentation/screen/simple_bloc_observer.dart';
@@ -25,11 +26,16 @@ void main() async {
   try {
     await Hive.openBox<NoteModel>(AppTexts.noteBox);
   } catch (e) {
-    // إذا فشل الفتح بسبب تلف الملف، نمسحه من القرص ونعير فتحه
     await Hive.deleteBoxFromDisk(AppTexts.noteBox);
     await Hive.openBox<NoteModel>(AppTexts.noteBox);
   }
 
+  try {
+    await Hive.openBox<NoteModel>(AppTexts.trashBox);
+  } catch (e) {
+    await Hive.deleteBoxFromDisk(AppTexts.trashBox);
+    await Hive.openBox<NoteModel>(AppTexts.trashBox);
+  }
 
   runApp(const MyApp());
 }
@@ -42,20 +48,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => AddNoteCubit(),
-        ),
-        BlocProvider(
-          create: (context) => FetchNoteCubit(),
-        ),
-        BlocProvider(
-          create: (context) => EditNoteCubit(),
-        ),
+        BlocProvider(create: (context) => AddNoteCubit()),
+        BlocProvider(create: (context) => FetchNoteCubit()),
+        BlocProvider(create: (context) => EditNoteCubit()),
+        BlocProvider(create: (context) => TrashNoteCubit()..fetchTrashNotes()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
-      ),
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: HomeScreen()),
     );
   }
 }

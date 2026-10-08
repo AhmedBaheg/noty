@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:my_note/core/utils/app_colors.dart';
 import 'package:my_note/core/utils/app_text_styles.dart';
 import 'package:my_note/core/utils/date_time_format.dart';
 import 'package:my_note/features/home/data/model/note_model.dart';
 
 class BuildNoteListViewItemWidget extends StatelessWidget {
-  const BuildNoteListViewItemWidget({super.key, required this.model});
+  const BuildNoteListViewItemWidget({super.key, required this.model, this.onPressed});
 
   final NoteModel model;
+  final Function()? onPressed;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -31,10 +32,20 @@ class BuildNoteListViewItemWidget extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 10),
-                Text(model.category!, style: AppTextStyles.label.copyWith(color: Color(model.categoryColor!))),
+                Text(
+                  model.category!,
+                  style: AppTextStyles.label.copyWith(
+                    color: Color(model.categoryColor!),
+                  ),
+                ),
                 Spacer(),
-                Icon(
-                    Icons.push_pin_rounded, color: model.isPinned == true ? Color(model.categoryColor!) : AppColors.textSecondary, size: 18),
+                IconButton(
+                  onPressed: onPressed,
+                  icon: Icon(Icons.push_pin_rounded, size: 18),
+                  color: model.isPinned == true
+                      ? Color(model.categoryColor!)
+                      : AppColors.textSecondary,
+                ),
               ],
             ),
             SizedBox(height: 15),
@@ -75,4 +86,3 @@ class BuildNoteListViewItemWidget extends StatelessWidget {
     );
   }
 }
-

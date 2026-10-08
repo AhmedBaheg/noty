@@ -24,8 +24,6 @@ class _CategoriesListViewBuilderWidgetState
   Widget build(BuildContext context) {
     return BlocBuilder<FetchNoteCubit, FetchNoteState>(
       builder: (context, state) {
-        List<NoteModel> notesList = BlocProvider.of<FetchNoteCubit>(context)
-            .notesList;
         return SizedBox(
           width: double.infinity,
           height: 50,
@@ -35,12 +33,11 @@ class _CategoriesListViewBuilderWidgetState
             itemBuilder: (context, index) => BuildCategoryListViewItemWidget(
               onTap: () {
                 BlocProvider.of<FetchNoteCubit>(context)
-                    .fetchSpecificNote(categories[index]);
-                selectedIndex = index;
+                    .selectCategory(categories[index], index);
               },
               text: categories[index],
               index: index,
-              selectedIndex: selectedIndex,
+              selectedIndex: BlocProvider.of<FetchNoteCubit>(context).selectedIndex,
             ),
           ),
         );
