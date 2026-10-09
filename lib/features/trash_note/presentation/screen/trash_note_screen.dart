@@ -6,7 +6,7 @@ import 'package:my_note/features/home/data/model/note_model.dart';
 import 'package:my_note/features/home/presentation/screen/widgets/build_note_list_view_item_widget.dart';
 import 'package:my_note/features/trash_note/presentation/cubit/trash_note_cubit.dart';
 
-import '../../../home/presentation/screen/widgets/empty_trash_widget.dart';
+import 'widgets/empty_trash_widget.dart';
 
 class TrashNoteScreen extends StatelessWidget {
   const TrashNoteScreen({super.key});
